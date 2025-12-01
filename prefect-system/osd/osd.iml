@@ -3,7 +3,7 @@
   <component name="FacetManager">
     <facet type="IvyIDEA" name="IvyIDEA">
       <configuration>
-        <option name="ivyFile" value="C:\Users\Admin\dev\apache-ant-1.10.15\bin\ivy-2.5.3.jar" />
+        <option name="onlyResolveSelectedConfigs" value="true" />
         <option name="useCustomIvySettings" value="false" />
         <option name="useProjectSettings" value="false" />
       </configuration>
