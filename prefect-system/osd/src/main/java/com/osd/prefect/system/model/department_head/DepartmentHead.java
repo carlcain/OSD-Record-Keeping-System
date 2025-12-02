@@ -2,6 +2,10 @@ package com.osd.prefect.system.model.department_head;
 
 public class DepartmentHead {
 
+    public DepartmentHead() {
+
+    }
+
     public DepartmentHead(String departmentheadID, String departmentID) {
         this.departmentheadID = departmentheadID;
         this.departmentID = departmentID;

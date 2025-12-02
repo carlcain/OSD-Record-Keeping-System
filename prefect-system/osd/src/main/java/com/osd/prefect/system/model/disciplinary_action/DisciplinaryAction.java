@@ -11,6 +11,10 @@ public class DisciplinaryAction {
     private String action;
     private String description;
 
+    public DisciplinaryAction() {
+
+    }
+
     public String getActionID() {
         return actionID;
     }

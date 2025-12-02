@@ -14,6 +14,10 @@ public class Guardian {
     private String relationship;
     private String studentID;
 
+    public Guardian() {
+
+    }
+
     public String getGuardianName() {
         return guardianName;
     }
