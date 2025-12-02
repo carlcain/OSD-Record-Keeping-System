@@ -1,4 +1,11 @@
 package com.osd.prefect.system.data.dao.users;
 
-public interface UsersDao {
+import com.osd.prefect.system.model.users.User;
+import java.util.List;
+
+public interface UsersDao
+{
+    User getUserbyID();
+    User getUserbyUsername();
+    List<User> getUserbyRole();
 }
