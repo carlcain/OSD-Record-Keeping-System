@@ -19,6 +19,4 @@ public class ConnectionHelper {
                 throw new RuntimeException("Error connecting to the database.", ex);
             }
         }
-
-    }
 }
