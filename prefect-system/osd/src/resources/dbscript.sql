@@ -57,8 +57,6 @@ CREATE TABLE student (
                          studentID VARCHAR(10) PRIMARY KEY,
                          userID VARCHAR(10),
                          personID VARCHAR(10),
-                         surname VARCHAR(30),
-                         firstname VARCHAR(50),
                          middlename VARCHAR(30),
                          studentLevel VARCHAR(30),
                          section VARCHAR(50),
