@@ -3,11 +3,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 public class ConnectionHelper {
 
-        public static final String URL = "jdbc:oracle:thin:@localhost:1521:";
+        public static final String URL = "jdbc:oracle:thin:@localhost:1521:orcl";
 
         public static final String ORACLE_DRIVER = "oracle.jdbc.driver.OracleDriver";
 
-        public static final String USERNAME = "osd";
+        public static final String USERNAME = "rcosd";
 
         public static final String PASSWORD = "Changeme0";
 
@@ -19,6 +19,4 @@ public class ConnectionHelper {
                 throw new RuntimeException("Error connecting to the database.", ex);
             }
         }
-
-    }
 }
