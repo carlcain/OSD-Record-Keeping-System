@@ -10,6 +10,10 @@ public class Prefect {
     private String prefectID;
     private String departmentID;
 
+    public Prefect() {
+
+    }
+
     public String getPrefectID() {
         return prefectID;
     }

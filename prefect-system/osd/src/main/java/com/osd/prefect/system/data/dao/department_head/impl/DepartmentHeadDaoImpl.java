@@ -1,4 +1,36 @@
 package com.osd.prefect.system.data.dao.department_head.impl;
 
-public class DepartmentHeadDaoImpl {
+import com.osd.prefect.system.data.connection.ConnectionHelper;
+import com.osd.prefect.system.data.dao.department_head.DepartmentHeadDao;
+import com.osd.prefect.system.model.department_head.DepartmentHead;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class DepartmentHeadDaoImpl implements DepartmentHeadDao {
+    @Override
+    public DepartmentHead getDepartmentHeadById(String departmentheadID) {
+        DepartmentHead departmentHead = null;
+        try (Connection con = ConnectionHelper.getConnection()){
+
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM GUARDIAN WHERE DEPARTMENTHEADID = ?");
+            stmt.setString(1, departmentheadID);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if(rs.next()) {
+                departmentHead = new DepartmentHead();
+                departmentHead.setDepartmentheadID(rs.getString("departmentHeadID"));
+                departmentHead.setDepartmentID(rs.getString("setDepartmentID"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("An SQL Exception occurred." + e.getMessage());
+        }
+
+        return departmentHead;
+
+    }
 }

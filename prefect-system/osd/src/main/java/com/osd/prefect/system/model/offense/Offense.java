@@ -14,6 +14,10 @@ public class Offense {
     private String type;
     private String remarks;
 
+    public Offense() {
+
+    }
+
     public String getOffenseID() {
         return offenseID;
     }
