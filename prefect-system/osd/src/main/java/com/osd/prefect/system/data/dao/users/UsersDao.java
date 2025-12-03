@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface UsersDao
 {
-    User getUserbyID();
-    User getUserbyUsername();
-    List<User> getUserbyRole();
+    User getUserbyID(String userId);
+    User getUserbyUsername(String username);
+    List<User> getUserbyRole(String role);
 }
