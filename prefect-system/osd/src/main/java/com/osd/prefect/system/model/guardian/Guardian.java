@@ -2,28 +2,34 @@ package com.osd.prefect.system.model.guardian;
 
 public class Guardian {
 
-    public Guardian(String guardianName, String contactNumber, String relationship, String studentID) {
-        this.guardianName = guardianName;
+    private String guardianID;
+    private String personID;
+    private String contactNumber;
+    private String relationship;
+    private String studentID;
+
+    public Guardian(String guardianID, String personID, String contactNumber, String relationship, String studentID) {
+        this.guardianID = guardianID;
+        this.personID = personID;
         this.contactNumber = contactNumber;
         this.relationship = relationship;
         this.studentID = studentID;
     }
 
-    private String guardianName;
-    private String contactNumber;
-    private String relationship;
-    private String studentID;
-
-    public Guardian() {
-
+    public String getGuardianID() {
+        return guardianID;
     }
 
-    public String getGuardianName() {
-        return guardianName;
+    public void setGuardianID(String guardianID) {
+        this.guardianID = guardianID;
     }
 
-    public void setGuardianName(String guardianName) {
-        this.guardianName = guardianName;
+    public String getPersonID() {
+        return personID;
+    }
+
+    public void setPersonID(String personID) {
+        this.personID = personID;
     }
 
     public String getContactNumber() {
