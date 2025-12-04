@@ -5,8 +5,8 @@ import java.util.List;
 
 public interface StudentDao
 {
-   Student getStudentbyID();
-   List<Student> getStudentsbyDepartmentID();
-   List<Student> getStudentsBySection();
-   List<Student> getStudentsByStudentLevel();
+   Student getStudentByID(String StudentID);
+   List<Student> getStudentsByDepartmentID(String DepartmentID);
+   List<Student> getStudentsBySection(String section);
+   List<Student> getStudentsByStudentLevel(String studentLevel);
 }
