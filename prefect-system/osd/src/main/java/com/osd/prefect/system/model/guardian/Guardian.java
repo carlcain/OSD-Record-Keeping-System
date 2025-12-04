@@ -16,6 +16,8 @@ public class Guardian {
         this.studentID = studentID;
     }
 
+    public Guardian(){}
+
     public String getGuardianID() {
         return guardianID;
     }

@@ -14,6 +14,8 @@ public class Prefect {
         this.departmentID = departmentID;
     }
 
+    public Prefect(){ }
+
     public String getPrefectID() {
         return prefectID;
     }

@@ -22,12 +22,6 @@ public class Student {
 
     public Student() {}
 
-    private String studentID;
-    private User user;
-    private String studentLevel;
-    private String section;
-    private String departmentID;
-
     public String getStudentID() {
         return studentID;
     }
@@ -56,9 +50,7 @@ public class Student {
         return studentLevel;
     }
 
-    public void setStudentLevel(String studentLevel) {
-        this.studentLevel = studentLevel;
-    }
+    public void setStudentLevel(String studentLevel) { this.studentLevel = studentLevel; }
 
     public String getSection() {
         return section;
