@@ -1,5 +1,7 @@
 package com.osd.prefect.system.model.student;
 
+import com.osd.prefect.system.model.users.User;
+
 public class Student {
 
     public Student(String studentID, String surname, String firstName, String middleName, String studentLevel, String section, String departmentID) {
@@ -15,9 +17,7 @@ public class Student {
     public Student() {}
 
     private String studentID;
-    private String surname;
-    private String firstName;
-    private String middleName;
+    private User user;
     private String studentLevel;
     private String section;
     private String departmentID;
