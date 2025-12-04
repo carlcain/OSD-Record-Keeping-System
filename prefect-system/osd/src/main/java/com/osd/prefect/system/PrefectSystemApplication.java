@@ -1,5 +1,7 @@
 package com.osd.prefect.system;
 
+import com.osd.prefect.system.app.facade.person.PersonFacade;
+import com.osd.prefect.system.app.facade.person.impl.PersonFacadeImpl;
 import com.osd.prefect.system.app.facade.student.StudentFacade;
 import com.osd.prefect.system.app.facade.student.impl.StudentFacadeImpl;
 import com.osd.prefect.system.app.facade.users.UserFacade;
@@ -8,6 +10,7 @@ import com.osd.prefect.system.app.facade.violation.ViolationFacade;
 import com.osd.prefect.system.app.facade.violation.impl.ViolationFacadeImpl;
 import com.osd.prefect.system.data.dao.department_head.impl.DepartmentHeadDaoImpl;
 import com.osd.prefect.system.model.department_head.DepartmentHead;
+import com.osd.prefect.system.model.person.Person;
 import com.osd.prefect.system.model.student.Student;
 import com.osd.prefect.system.model.users.User;
 import com.osd.prefect.system.model.violation.Violation;
@@ -35,10 +38,10 @@ public class PrefectSystemApplication {
             UserFacade userFacade = new UserFacadeImpl();
             currentUser = userFacade.getUserbyUsername(username);
 
-            // to make debug easier
+            // to make debug tool access it easier
             String currentusername = currentUser.getUsername();
             String currentpassword = currentUser.getUserPassword();
-            if (username.equals(currentusername) && password.equals(currentpassword)) {
+            if (username.equals(currentusername) && password.equals(currentpassword) ) {
                 System.out.println("Login successful");
                 continuous = false;
             } else {
@@ -59,21 +62,23 @@ public class PrefectSystemApplication {
                 departmentHeadLogic(currentUser);
                 break;
         }
-
     }
 
     public static void studentLogic(User user) {
         StudentFacade sf = new StudentFacadeImpl();
-        Student s = sf.getStudentbyID(user.getUserID());
+        Student s = sf.getStudentByID(user.getUserID());
 
-        System.out.println("Hello " + s.getFirstName() +" !\n");
+        PersonFacade pf = new PersonFacadeImpl();
+        Person p = pf.getByPersonId(s.getPersonID());
+
+        System.out.println("Hello " + p.getFirstName() +" !\n");
 
         System.out.println("Student info: ");
-        System.out.println("First Name: " + s.getFirstName());
-        System.out.println("Middle Name: " + s.getMiddleName());
-        System.out.println("Surname: " + s.getSurname() + "\n");
-        System.out.println("Section: " + s.getSection() + "\n");
+        System.out.println("First Name: " + p.getFirstName());
+        System.out.println("Middle Name: " + p.getMiddleName());
+        System.out.println("Surname: " + p.getLastName() + "\n");
 
+        System.out.println("Section: " + s.getSection() + "\n");
         System.out.println("Violations: \n");
         ViolationFacade vf = new ViolationFacadeImpl();
         List<Violation> vl = vf.getAllViolations();
