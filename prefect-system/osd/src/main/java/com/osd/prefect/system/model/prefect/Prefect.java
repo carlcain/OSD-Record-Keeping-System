@@ -2,16 +2,16 @@ package com.osd.prefect.system.model.prefect;
 
 public class Prefect {
 
-    public Prefect(String prefectID, String departmentID) {
-        this.prefectID = prefectID;
-        this.departmentID = departmentID;
-    }
-
     private String prefectID;
+    private String userID;
+    private String personID;
     private String departmentID;
 
-    public Prefect() {
-
+    public Prefect(String prefectID, String userID, String personID, String departmentID) {
+        this.prefectID = prefectID;
+        this.userID = userID;
+        this.personID = personID;
+        this.departmentID = departmentID;
     }
 
     public String getPrefectID() {
@@ -22,6 +22,22 @@ public class Prefect {
         this.prefectID = prefectID;
     }
 
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public String getPersonID() {
+        return personID;
+    }
+
+    public void setPersonID(String personID) {
+        this.personID = personID;
+    }
+
     public String getDepartmentID() {
         return departmentID;
     }
@@ -29,4 +45,6 @@ public class Prefect {
     public void setDepartmentID(String departmentID) {
         this.departmentID = departmentID;
     }
+
+
 }
