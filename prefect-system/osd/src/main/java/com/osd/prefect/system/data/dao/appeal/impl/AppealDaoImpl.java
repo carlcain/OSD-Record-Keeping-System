@@ -3,6 +3,8 @@ package com.osd.prefect.system.data.dao.appeal.impl;
 import com.osd.prefect.system.data.dao.appeal.AppealDao;
 import com.osd.prefect.system.model.appeal.Appeal;
 
+import java.util.List;
+
 public class AppealDaoImpl implements AppealDao {
     @Override
     public Appeal addAppeal(String violationID, String studentID, String message) {
@@ -12,5 +14,10 @@ public class AppealDaoImpl implements AppealDao {
     @Override
     public void editAppealStatus(Appeal appeal, String status) {
 
+    }
+
+    @Override
+    public List<Appeal> getAllAppeals() {
+        return null;
     }
 }
