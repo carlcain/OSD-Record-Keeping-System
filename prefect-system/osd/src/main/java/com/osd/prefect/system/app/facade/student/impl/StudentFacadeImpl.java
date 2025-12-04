@@ -14,12 +14,11 @@ public class StudentFacadeImpl implements StudentFacade {
 
     public StudentFacadeImpl() {
         this.studentDao = new StudentDaoImpl();
-
     }
 
     @Override
-    public Student getStudentbyID() {
-        return null;
+    public Student getStudentbyID(String userID) {
+        return studentDao.getStudentByID(userID);
     }
 
     @Override
