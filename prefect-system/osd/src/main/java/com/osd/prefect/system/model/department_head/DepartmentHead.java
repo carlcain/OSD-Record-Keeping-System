@@ -14,6 +14,11 @@ public class DepartmentHead {
         this.departmentID = departmentID;
     }
 
+    public DepartmentHead()
+    {
+
+    }
+
     public String getDepartmentHeadID() {
         return departmentHeadID;
     }

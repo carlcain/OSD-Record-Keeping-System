@@ -18,6 +18,11 @@ public class Student {
         this.departmentID = departmentID;
     }
 
+    public Student()
+    {
+
+    }
+
     public String getStudentID() {
         return studentID;
     }

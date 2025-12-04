@@ -11,19 +11,21 @@ import java.sql.SQLException;
 
 public class DepartmentHeadDaoImpl implements DepartmentHeadDao {
     @Override
-    public DepartmentHead getDepartmentHeadById(String departmentheadID) {
+    public DepartmentHead getDepartmentHeadById(String ID) {
         DepartmentHead departmentHead = null;
         try (Connection con = ConnectionHelper.getConnection()){
 
-            PreparedStatement stmt = con.prepareStatement("SELECT * FROM GUARDIAN WHERE DEPARTMENTHEADID = ?");
-            stmt.setString(1, departmentheadID);
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM department_head WHERE UserID = ?");
+            stmt.setString(1, ID);
 
             ResultSet rs = stmt.executeQuery();
 
             if(rs.next()) {
                 departmentHead = new DepartmentHead();
-                departmentHead.setDepartmentheadID(rs.getString("departmentHeadID"));
-                departmentHead.setDepartmentID(rs.getString("setDepartmentID"));
+                departmentHead.setDepartmentHeadID(rs.getString("departmentHeadID"));
+                departmentHead.setDepartmentID(rs.getString("departmentID"));
+                departmentHead.setUserID(rs.getString("userID"));
+                departmentHead.setPersonID(rs.getString("personID"));
             }
 
         } catch (SQLException e) {
@@ -31,6 +33,5 @@ public class DepartmentHeadDaoImpl implements DepartmentHeadDao {
         }
 
         return departmentHead;
-
     }
 }

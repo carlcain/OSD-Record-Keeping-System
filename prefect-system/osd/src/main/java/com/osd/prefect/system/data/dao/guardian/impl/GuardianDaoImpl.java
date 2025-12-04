@@ -24,7 +24,7 @@ public class GuardianDaoImpl implements GuardianDao {
 
             if(rs.next()) {
                 guardian = new Guardian();
-                guardian.setGuardianName(rs.getString("guardianName"));
+                guardian.setPersonID(rs.getString("PersonID"));
                 guardian.setContactNumber(rs.getString("contactnumber"));
                 guardian.setRelationship(rs.getString("relationship"));
                 guardian.setStudentID(rs.getString("studentID"));

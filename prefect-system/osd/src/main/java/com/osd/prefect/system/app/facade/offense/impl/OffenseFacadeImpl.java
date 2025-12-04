@@ -7,13 +7,16 @@ import com.osd.prefect.system.model.offense.Offense;
 
 import java.util.List;
 
-public class OffenseFacadeImpl implements OffenseFacade {
+public class OffenseFacadeImpl implements OffenseFacade
+{
     private OffenseDao offenseDao;
+
     public OffenseFacadeImpl(OffenseDao offenseDao) {
         offenseDao = new OffenseDaoImpl();
     }
     @Override
-    public List<Offense> getAllOffense() {
+    public List<Offense> getAllOffense()
+    {
         return offenseDao.getAllOffense();
     }
 }
