@@ -5,7 +5,7 @@ import com.osd.prefect.system.model.appeal.Appeal;
 import java.util.List;
 
 public interface AppealDao {
-    Appeal addAppeal(String violationID, String studentID,String message);
+    boolean addAppeal(String violationID, String studentID,String message);
     void editAppealStatus(Appeal appeal, String status);
     List<Appeal> getAllAppeals();
 }
