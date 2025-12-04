@@ -11,12 +11,12 @@ import java.sql.SQLException;
 
 public class DepartmentHeadDaoImpl implements DepartmentHeadDao {
     @Override
-    public DepartmentHead getDepartmentHeadById(String departmentheadID) {
+    public DepartmentHead getDepartmentHeadById(String UserID) {
         DepartmentHead departmentHead = null;
         try (Connection con = ConnectionHelper.getConnection()){
 
-            PreparedStatement stmt = con.prepareStatement("SELECT * FROM department_head WHERE DEPARTMENTHEADID = ?");
-            stmt.setString(1, departmentheadID);
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM department_head WHERE UserID = ?");
+            stmt.setString(1, UserID);
 
             ResultSet rs = stmt.executeQuery();
 
@@ -25,7 +25,7 @@ public class DepartmentHeadDaoImpl implements DepartmentHeadDao {
                 departmentHead.setDepartmentheadID(rs.getString("departmentHeadID"));
                 departmentHead.setUserID(rs.getString("UserID"));
                 departmentHead.setPersonID(rs.getString("PersonID"));
-                departmentHead.setDepartmentID(rs.getString("setDepartmentID"));
+                departmentHead.setDepartmentID(rs.getString("departmentID"));
 
             }
 

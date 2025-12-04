@@ -105,11 +105,13 @@ public class PrefectSystemApplication {
         System.out.println("would you like to make a request?");
         System.out.println("request = r");
         System.out.println("exit = e");
+        System.out.print("-->");
         String input = sc.next().toLowerCase();
 
         if (input.equals("r")) {
             System.out.println("Details:");
-            String details = sc.next();
+            sc.nextLine();
+            String details = sc.nextLine();
 
             System.out.println("Message:");
             String message = sc.nextLine();
