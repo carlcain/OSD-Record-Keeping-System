@@ -33,9 +33,6 @@ public class StudentDaoImpl implements StudentDao
             {
                 student = new Student();
                 student.setStudentID(rs.getString("studentID"));
-                student.setSurname(rs.getString("Surname"));
-                student.setFirstName(rs.getString("FirstName"));
-                student.setMiddleName(rs.getString("Middlename"));
                 student.setStudentLevel(rs.getString("studentlevel"));
                 student.setSection(rs.getString("section"));
                 student.setDepartmentID(rs.getString("departmentID"));
@@ -77,9 +74,6 @@ public class StudentDaoImpl implements StudentDao
             {
                 Student student = new Student();
                 student.setStudentID(rs.getString("studentID"));
-                student.setSurname(rs.getString("Surname"));
-                student.setFirstName(rs.getString("FirstName"));
-                student.setMiddleName(rs.getString("Middlename"));
                 student.setStudentLevel(rs.getString("studentlevel"));
                 student.setSection(rs.getString("section"));
                 student.setDepartmentID(rs.getString("departmentID"));
@@ -119,9 +113,6 @@ public class StudentDaoImpl implements StudentDao
             {
                 Student student = new Student();
                 student.setStudentID(rs.getString("studentID"));
-                student.setSurname(rs.getString("Surname"));
-                student.setFirstName(rs.getString("FirstName"));
-                student.setMiddleName(rs.getString("Middlename"));
                 student.setStudentLevel(rs.getString("studentlevel"));
                 student.setSection(rs.getString("section"));
                 student.setDepartmentID(rs.getString("departmentID"));
@@ -161,9 +152,6 @@ public class StudentDaoImpl implements StudentDao
             {
                 Student student = new Student();
                 student.setStudentID(rs.getString("studentID"));
-                student.setSurname(rs.getString("Surname"));
-                student.setFirstName(rs.getString("FirstName"));
-                student.setMiddleName(rs.getString("Middlename"));
                 student.setStudentLevel(rs.getString("studentlevel"));
                 student.setSection(rs.getString("section"));
                 student.setDepartmentID(rs.getString("departmentID"));
