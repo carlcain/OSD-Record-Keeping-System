@@ -62,6 +62,7 @@ public class UsersDaoImpl implements UsersDao
                 user.setUsername(rs.getString("username"));
                 user.setUserPassword(rs.getString("userPassword"));
                 user.setUserRole(rs.getString("userRole"));
+                return user;
             }
 
         }
@@ -70,7 +71,7 @@ public class UsersDaoImpl implements UsersDao
             System.out.println("An SQL Exception occurred." + e.getMessage());
         }
 
-        return user;
+   return null;
     }
 
     @Override
