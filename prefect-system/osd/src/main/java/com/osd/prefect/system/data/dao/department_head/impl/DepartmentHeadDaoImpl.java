@@ -15,7 +15,7 @@ public class DepartmentHeadDaoImpl implements DepartmentHeadDao {
         DepartmentHead departmentHead = null;
         try (Connection con = ConnectionHelper.getConnection()){
 
-            PreparedStatement stmt = con.prepareStatement("SELECT * FROM GUARDIAN WHERE DEPARTMENTHEADID = ?");
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM department_head WHERE DEPARTMENTHEADID = ?");
             stmt.setString(1, departmentheadID);
 
             ResultSet rs = stmt.executeQuery();
@@ -23,7 +23,10 @@ public class DepartmentHeadDaoImpl implements DepartmentHeadDao {
             if(rs.next()) {
                 departmentHead = new DepartmentHead();
                 departmentHead.setDepartmentheadID(rs.getString("departmentHeadID"));
+                departmentHead.setUserID(rs.getString("UserID"));
+                departmentHead.setPersonID(rs.getString("PersonID"));
                 departmentHead.setDepartmentID(rs.getString("setDepartmentID"));
+
             }
 
         } catch (SQLException e) {

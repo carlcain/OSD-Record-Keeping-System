@@ -2,6 +2,7 @@ package com.osd.prefect.system;
 
 import com.osd.prefect.system.app.facade.person.PersonFacade;
 import com.osd.prefect.system.app.facade.person.impl.PersonFacadeImpl;
+import com.osd.prefect.system.app.facade.request.impl.RequestFacadeImpl;
 import com.osd.prefect.system.app.facade.student.StudentFacade;
 import com.osd.prefect.system.app.facade.student.impl.StudentFacadeImpl;
 import com.osd.prefect.system.app.facade.users.UserFacade;
@@ -99,6 +100,7 @@ public class PrefectSystemApplication {
         DepartmentHeadDaoImpl departmentHeadDao = new DepartmentHeadDaoImpl();
         DepartmentHead departmentHead = departmentHeadDao.getDepartmentHeadById(user.getUserID());
 
+        System.out.println("=================================");
         System.out.println("Welcome DeptHead " + user.getUsername() + "! ");
         System.out.println("would you like to make a request?");
         System.out.println("request = r");
@@ -106,6 +108,16 @@ public class PrefectSystemApplication {
         String input = sc.next().toLowerCase();
 
         if (input.equals("r")) {
+            System.out.println("Details:");
+            String details = sc.next();
+
+            System.out.println("Message:");
+            String message = sc.nextLine();
+
+            System.out.println("Loading.....");
+            RequestFacadeImpl requestFacade = new RequestFacadeImpl();
+            requestFacade.setRequest(departmentHead.getDepartmentHeadID(), details, message);
+            System.out.println("Done");
 
         } else if (input.equals("e")) {
             Login();
