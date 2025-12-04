@@ -18,22 +18,13 @@ public class StudentDaoImpl implements StudentDao
     @Override
     public Student getStudentByID(String StudentID)
     {
-        Student student = null;
+        Student student;
 
         try (Connection con = ConnectionHelper.getConnection())
         {
             PreparedStatement stmt = con.prepareStatement(
-                    "SELECT " +
-                    "    s.studentID, " +
-                    "    p.lastName AS Surname, " +
-                    "    p.firstName AS FirstName, " +
-                    "    p.middleName AS Middlename, " +
-                    "    s.studentLevel, " +
-                    "    s.section, " +
-                    "    s.departmentID " +
-                    "FROM student s " +
-                    "JOIN person p ON s.personID = p.personID " +
-                    "WHERE s.studentID = ?");
+                    "SELECT  s.studentID, p.lastName AS Surname, p.firstName AS FirstName, p.middleName AS Middlename, s.studentLevel, s.section, s.departmentID \n" +
+                            "FROM student s JOIN person p ON s.personID = p.personID WHERE s.userid = ?");
 
             stmt.setString(1, StudentID);
             ResultSet rs = stmt.executeQuery();
@@ -48,15 +39,15 @@ public class StudentDaoImpl implements StudentDao
                 student.setStudentLevel(rs.getString("studentlevel"));
                 student.setSection(rs.getString("section"));
                 student.setDepartmentID(rs.getString("departmentID"));
+                return student;
             }
-
         }
         catch (SQLException e)
         {
             System.out.println("An SQL Exception occurred." + e.getMessage());
         }
 
-        return student;
+        return null;
     }
 
     @Override
