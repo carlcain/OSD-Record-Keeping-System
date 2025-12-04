@@ -4,14 +4,17 @@ public class Person {
     private String personId;
     private String lastName;
     private String firstName;
+    private String middleName;
+
 
     public Person(){
 
     }
-    public Person(String personId, String lastName, String firstName) {
+    public Person(String personId, String lastName, String firstName, String middleName) {
         this.personId = personId;
         this.lastName = lastName;
         this.firstName = firstName;
+        this.middleName = middleName;
     }
 
 
@@ -38,4 +41,12 @@ public class Person {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
 }
