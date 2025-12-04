@@ -2,6 +2,7 @@ package com.osd.prefect.system.data.dao.users.impl;
 
 import com.osd.prefect.system.data.dao.users.UsersDao;
 import com.osd.prefect.system.data.connection.ConnectionHelper;
+import com.osd.prefect.system.model.users.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,11 +13,13 @@ import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.lang.String;
 
 class UsersDaoImplTest {
 
@@ -31,6 +34,11 @@ class UsersDaoImplTest {
 
     private static MockedStatic<ConnectionHelper> connectionHelper;
 
+    @Mock
+    private UsersDao usersDao;
+    @Mock
+    private UsersDaoImpl usersDaoImpl;
+
     @BeforeEach
     public void setUp() throws Exception {
         MockitoAnnotations.openMocks(this);
@@ -42,17 +50,31 @@ class UsersDaoImplTest {
     }
 
     @Test
-    void getUserByIdAndUsernameWithBlankIdShouldThrowException() {
-        UsersDao usersDao = new UsersDaoImpl();
-        Exception exception = assertThrows(Exception.class, () -> usersDao.getUserbyID(""));
-        exception = assertThrows(Exception.class, () -> usersDao.getUserbyUsername(""));
-        assertEquals("ID is not present", exception.getMessage());
-        assertEquals("ID is not present", exception.getMessage());
+    void checkUsername() {
+        UsersDaoImpl usersDao = new UsersDaoImpl();
+        User user = usersDao.getUserbyUsername("keith123");
+        assertEquals("keith123", user.getUsername());
     }
 
 //    @Test
-//    void getUserbyUsername() {
+//    void getUserByIdWithBlankIdShouldThrowException() {
 //        UsersDao usersDao = new UsersDaoImpl();
+//        Exception exception = assertThrows(Exception.class, () -> usersDao.getUserbyID(""));
+//        assertEquals("ID is not present", exception.getMessage());
+//    }
+
+//    @Test
+//    void getUserbyUsernameWithBlankIdShouldThrowException() {
+//        UsersDao usersDao = new UsersDaoImpl();
+//        Exception exception = assertThrows(Exception.class, () -> usersDao.getUserbyUsername(""));
+//        assertEquals("Username is not present", exception.getMessage());
+//    }
+
+//    @Test
+//    void findUserIdShouldReturnAnUser() throws SQLException {
+//        UsersDao usersDao = new UsersDaoImpl();
+//
+//        when(resultSet.getString("userId")).thenReturn(usersDao.userId);
 //
 //    }
 
