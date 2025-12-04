@@ -12,6 +12,8 @@ public class Student {
         this.departmentID = departmentID;
     }
 
+    public Student() {}
+
     private String studentID;
     private String surname;
     private String firstName;
