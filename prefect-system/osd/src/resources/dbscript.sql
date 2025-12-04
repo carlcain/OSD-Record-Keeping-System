@@ -17,9 +17,10 @@ DROP TABLE department_head CASCADE CONSTRAINTS;
 DROP TABLE department CASCADE CONSTRAINTS;
 DROP TABLE guardian CASCADE CONSTRAINTS;
 DROP TABLE offense CASCADE CONSTRAINTS;
-DROP TABLE disciplinaryAction CASCADE CONSTRAINTS;
+DROP TABLE disciplinaryaction CASCADE CONSTRAINTS;
 DROP TABLE violation CASCADE CONSTRAINTS;
 DROP TABLE appeal CASCADE CONSTRAINTS;
+DROP TABLE request CASCADE CONSTRAINTS;
 
 COMMIT;
 
@@ -119,6 +120,13 @@ CREATE TABLE appeal (
     status VARCHAR(20)
 );
 
+-- REQUEST
+CREATE TABLE request (
+    departmentHeadID VARCHAR(10),
+    details VARCHAR(100),
+    message VARCHAR(500)
+);
+
 -- FOREIGN KEYS
 ALTER TABLE department_head ADD CONSTRAINT FK_DEPTHEAD_USER FOREIGN KEY (userID) REFERENCES users(userID);
 ALTER TABLE department_head ADD CONSTRAINT FK_DEPTHEAD_PERSON FOREIGN KEY (personID) REFERENCES person(personID);
@@ -137,6 +145,7 @@ ALTER TABLE violation ADD CONSTRAINT FK_VIOLATION_OFFENSE FOREIGN KEY (offenseID
 ALTER TABLE violation ADD CONSTRAINT FK_VIOLATION_ACTION FOREIGN KEY (actionID) REFERENCES disciplinaryaction(actionID);
 ALTER TABLE appeal ADD CONSTRAINT FK_APPEAL_VIOLATION FOREIGN KEY (violationID) REFERENCES violation(violationID);
 ALTER TABLE appeal ADD CONSTRAINT FK_APPEAL_STUDENT FOREIGN KEY (studentID) REFERENCES student(studentID);
+ALTER TABLE request ADD CONSTRAINT FK_REQUEST_DEPTHEAD FOREIGN KEY (departmentHeadID) REFERENCES department_head(departmentHeadID);
 
 
 -- LOGIN VALUES
@@ -240,30 +249,22 @@ INSERT INTO disciplinaryaction (actionID, action, description) VALUES ('D-001', 
 INSERT INTO disciplinaryaction (actionID, action, description) VALUES ('D-002', 'Probation', 'a warning status given to a student whose academic performance or behavior falls below the institutions standards');
 
 -- VIOLATION VALUES
-INSERT INTO violation (violationID, studentID, prefectID, offenseID, Dateofviolation, actionID, Dateofresolution, Remarks, status)
-VALUES ('V-001', 'S-001', 'DO-001', 'OFF-002', TO_DATE('2025-07-28','YYYY-MM-DD'), 'D-001', TO_DATE('2025-08-04','YYYY-MM-DD'), '8 hours of Community service', 'IN PROGRESS');
-
-INSERT INTO violation (violationID, studentID, prefectID, offenseID, Dateofviolation, actionID, Dateofresolution, Remarks, status)
-VALUES ('V-002', 'S-002', 'DO-001', 'OFF-005', TO_DATE('2025-10-01','YYYY-MM-DD'), 'D-001', TO_DATE('2025-10-04','YYYY-MM-DD'), '4 hours of Community service', 'IN PROGRESS');
-
-INSERT INTO violation (violationID, studentID, prefectID, offenseID, Dateofviolation, actionID, Dateofresolution, Remarks, status)
-VALUES ('V-003', 'S-003', 'DO-001', 'OFF-007', TO_DATE('2025-10-20','YYYY-MM-DD'), 'D-001', TO_DATE('2025-10-25','YYYY-MM-DD'), '10 hours of Community service', 'IN PROGRESS');
+INSERT INTO violation (violationID, studentID, prefectID, offenseID, Dateofviolation, actionID, Dateofresolution, Remarks, status)  VALUES ('V-001', 'S-001', 'DO-001', 'OFF-002', TO_DATE('2025-07-28','YYYY-MM-DD'), 'D-001', TO_DATE('2025-08-04','YYYY-MM-DD'), '8 hours of Community service', 'IN PROGRESS');
+INSERT INTO violation (violationID, studentID, prefectID, offenseID, Dateofviolation, actionID, Dateofresolution, Remarks, status) VALUES ('V-002', 'S-002', 'DO-001', 'OFF-005', TO_DATE('2025-10-01','YYYY-MM-DD'), 'D-001', TO_DATE('2025-10-04','YYYY-MM-DD'), '4 hours of Community service', 'IN PROGRESS');
+INSERT INTO violation (violationID, studentID, prefectID, offenseID, Dateofviolation, actionID, Dateofresolution, Remarks, status) VALUES ('V-003', 'S-003', 'DO-001', 'OFF-007', TO_DATE('2025-10-20','YYYY-MM-DD'), 'D-001', TO_DATE('2025-10-25','YYYY-MM-DD'), '10 hours of Community service', 'IN PROGRESS');
 
 -- APPEAL VALUES
-INSERT INTO appeal (appealID, violationID, studentID, message, datefiled, status)
-VALUES ('APP-001', 'V-001', 'S-001', 'I did not punch my classmate', TO_DATE('2025-07-29','YYYY-MM-DD'), 'Not Resolve');
+INSERT INTO appeal (appealID, violationID, studentID, message, datefiled, status) VALUES ('APP-001', 'V-001', 'S-001', 'I did not punch my classmate', TO_DATE('2025-07-29','YYYY-MM-DD'), 'Not Resolve');
+INSERT INTO appeal (appealID, violationID, studentID, message, datefiled, status) VALUES ('APP-002', 'V-002', 'S-002', 'We are simply holding hands', TO_DATE('2025-10-03','YYYY-MM-DD'), 'Resolve');
+INSERT INTO appeal (appealID, violationID, studentID, message, datefiled, status) VALUES ('APP-003', 'V-003', 'S-003', 'I thought that our teacher will not attend the class', TO_DATE('2025-10-22','YYYY-MM-DD'), 'Not Resolve');
 
-INSERT INTO appeal (appealID, violationID, studentID, message, datefiled, status)
-VALUES ('APP-002', 'V-002', 'S-002', 'We are simply holding hands', TO_DATE('2025-10-03','YYYY-MM-DD'), 'Resolve');
+--REQUEST VALUES
 
-INSERT INTO appeal (appealID, violationID, studentID, message, datefiled, status)
-VALUES ('APP-003', 'V-003', 'S-003', 'I thought that our teacher will not attend the class', TO_DATE('2025-10-22','YYYY-MM-DD'), 'Not Resolve');
+INSERT INTO request (departmentHeadID, details, message) VALUES ('HD-002', 'St. Rita', 'Requesting for the studentIDs of all students in St. Rita');
+INSERT INTO request (departmentHeadID, details, message) VALUES ('HD-003', 'IT701', 'Requesting for the studentIDs of all students in IT701');
+INSERT INTO request (departmentHeadID, details, message) VALUES ('HD-001', 'St. Hannibal', 'Requesting for the studentIDs of all students in St. Hannibal');
+
+
 
 COMMIT;
-
-
-
-
-
-
 

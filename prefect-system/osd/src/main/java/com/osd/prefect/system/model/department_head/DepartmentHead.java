@@ -2,26 +2,41 @@ package com.osd.prefect.system.model.department_head;
 
 public class DepartmentHead {
 
-    public DepartmentHead() {
-
-    }
-
-    public DepartmentHead(String departmentheadID, String departmentID) {
-        this.departmentheadID = departmentheadID;
-        this.departmentID = departmentID;
-
-    }
-    private String departmentheadID;
-
-    public String getDepartmentheadID() {
-        return departmentheadID;
-    }
-
-    public void setDepartmentheadID(String departmentheadID) {
-        this.departmentheadID = departmentheadID;
-    }
-
+    private String departmentHeadID;
+    private String userID;
+    private String personID;
     private String departmentID;
+
+    public DepartmentHead(String departmentHeadID, String userID, String personID, String departmentID) {
+        this.departmentHeadID = departmentHeadID;
+        this.userID = userID;
+        this.personID = personID;
+        this.departmentID = departmentID;
+    }
+
+    public String getDepartmentHeadID() {
+        return departmentHeadID;
+    }
+
+    public void setDepartmentHeadID(String departmentHeadID) {
+        this.departmentHeadID = departmentHeadID;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public String getPersonID() {
+        return personID;
+    }
+
+    public void setPersonID(String personID) {
+        this.personID = personID;
+    }
 
     public String getDepartmentID() {
         return departmentID;

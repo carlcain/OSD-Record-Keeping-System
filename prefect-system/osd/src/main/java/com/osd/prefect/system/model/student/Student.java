@@ -2,25 +2,21 @@ package com.osd.prefect.system.model.student;
 
 public class Student {
 
-    public Student(String studentID, String surname, String firstName, String middleName, String studentLevel, String section, String departmentID) {
+    private String studentID;
+    private String userID;
+    private String personID;
+    private String studentLevel;
+    private String section;
+    private String departmentID;
+
+    public Student(String studentID, String userID, String personID, String studentLevel, String section, String departmentID) {
         this.studentID = studentID;
-        this.surname = surname;
-        this.firstName = firstName;
-        this.middleName = middleName;
+        this.userID = userID;
+        this.personID = personID;
         this.studentLevel = studentLevel;
         this.section = section;
         this.departmentID = departmentID;
     }
-
-    public Student() {}
-
-    private String studentID;
-    private String surname;
-    private String firstName;
-    private String middleName;
-    private String studentLevel;
-    private String section;
-    private String departmentID;
 
     public String getStudentID() {
         return studentID;
@@ -30,28 +26,20 @@ public class Student {
         this.studentID = studentID;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getUserID() {
+        return userID;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getPersonID() {
+        return personID;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
+    public void setPersonID(String personID) {
+        this.personID = personID;
     }
 
     public String getStudentLevel() {
@@ -77,4 +65,5 @@ public class Student {
     public void setDepartmentID(String departmentID) {
         this.departmentID = departmentID;
     }
+
 }
