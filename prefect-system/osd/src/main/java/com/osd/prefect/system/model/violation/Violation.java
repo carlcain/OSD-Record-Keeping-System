@@ -26,6 +26,10 @@ public class Violation {
     private String remarks;
     private String status;
 
+    public Violation() {
+
+    }
+
     public String getViolationID() {
         return violationID;
     }
