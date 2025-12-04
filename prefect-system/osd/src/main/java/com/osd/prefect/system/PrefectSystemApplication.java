@@ -27,107 +27,175 @@ package com.osd.prefect.system;
 
 import java.util.Scanner;
 public class PrefectSystemApplication {
+    private static Scanner scanner = new Scanner(System.in);
+    private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    private static String currentUser;
+    private static String currentRole;
+
     public static void main(String[] args) {
+        if (!login()) return;
+        if (currentRole.equals("Prefect")) prefectMenu();
+        if (currentRole.equals("Student")) studentMenu();
+    }
 
-        System.out.println("Welcome to Prefect System Application");
-        Scanner scanner = new Scanner(System.in);
-
+    private static boolean login() {
         int attempts = 0;
-
         while (attempts < 3) {
+            try {
+                System.out.println("Prefect System Login");
+                System.out.print("Username/ID: ");
+                String username = scanner.nextLine();
+                System.out.print("Password: ");
+                String password = scanner.nextLine();
 
-            System.out.println("\nPrefect System Login");
-
-            System.out.print("Username: ");
-            String username = scanner.nextLine();
-
-            if (!loginFacade.getUserByUsername(username)) {
-                System.out.println("Username not found.\n");
-                attempts++;
-                continue;
-            }
-
-            System.out.print("Password: ");
-            String password = scanner.nextLine();
-
-
-            if (loginFacade.validatePassword(username, password)) {
-                System.out.println("\nLogin successful!\n");
-                break;
-            } else {
-                System.out.println("Incorrect password.\n");
-                attempts++;
+                currentRole = UserFacade.validateUser(username, password);
+                if (currentRole != null) {
+                    currentUser = username;
+                    System.out.println("\nLogin successful as " + currentRole + "!\n");
+                    return true;
+                } else {
+                    System.out.println("Incorrect username or password.\n");
+                    attempts++;
+                }
+            } catch (Exception e) {
+                System.err.println("Login error: " + e.getMessage());
             }
         }
+        System.out.println("Too many failed attempts. Exiting system...");
+        return false;
+    }
 
-        if (attempts == 3) {
-            System.out.println("Too many failed attempts. Exiting system...");
-            return;
-        }
-
+    private static void prefectMenu() {
         while (true) {
-
-            System.out.println("\n HOMEPAGE");
-            System.out.println("List of Students");
-            System.out.println("-----------------------------");
-
-            List<StudentDTO> students = homePageFacade.getAllStudents();
-
-            System.out.printf("%-12s %-20s %-10s %-10s\n",
-                    "StudentID", "Student Name", "Grade", "Section");
-
-            for (StudentDTO s : students) {
-                System.out.printf("%-12s %-20s %-10s %-10s\n",
-                        s.getId(), s.getName(), s.getGrade(), s.getSection());
-            }
-
-            System.out.println("\nFilter Options:");
-            System.out.println("1. Filter by Grade");
-            System.out.println("2. Filter by Section");
-            System.out.println("3. Back to Navigation");
-
+            System.out.println("PREFECT MAIN MENU");
+            System.out.println("[1] Homepage");
+            System.out.println("[2] Record Violation");
+            System.out.println("[3] Violation Page");
+            System.out.println("[4] Student Appeals");
+            System.out.println("[5] Settings");
+            System.out.println("[6] Logout");
             System.out.print("Enter choice: ");
             String choice = scanner.nextLine();
-
             switch (choice) {
-
-                case "1":
-                    System.out.print("Enter grade (e.g., Grade 11): ");
-                    String grade = scanner.nextLine();
-                    List<StudentDTO> filteredByGrade = homePageFacade.getStudentsByGrade(grade);
-
-                    System.out.println("\nFiltered by Grade: " + grade);
-                    System.out.printf("%-12s %-20s %-10s %-10s\n",
-                            "StudentID", "Student Name", "Grade", "Section");
-                    for (StudentDTO s : filteredByGrade) {
-                        System.out.printf("%-12s %-20s %-10s %-10s\n",
-                                s.getId(), s.getName(), s.getGrade(), s.getSection());
-                    }
-                    break;
-
-                case "2":
-                    System.out.print("Enter section (e.g., A): ");
-                    String section = scanner.nextLine();
-                    List<StudentDTO> filteredBySection = homePageFacade.getStudentsBySection(section);
-
-                    System.out.println("\nFiltered by Section: " + section);
-                    System.out.printf("%-12s %-20s %-10s %-10s\n",
-                            "StudentID", "Student Name", "Grade", "Section");
-                    for (StudentDTO s : filteredBySection) {
-                        System.out.printf("%-12s %-20s %-10s %-10s\n",
-                                s.getId(), s.getName(), s.getGrade(), s.getSection());
-                    }
-                    break;
-
-                case "3":
-                    System.out.println("Returning to main navigation...");
-                    return;
-
-                default:
-                    System.out.println("Invalid choice.");
+                case "1": showHomepage(); break;
+                case "2": recordViolation(); break;
+                case "3": showViolationPage(); break;
+                case "4": showStudentAppeals(); break;
+                case "5": settingsPage(); break;
+                case "6": if (logout()) return; break;
+                default: System.out.println("Invalid choice."); break;
             }
         }
     }
+
+    private static void studentMenu() {
+        while (true) {
+            System.out.println("STUDENT MAIN MENU");
+            System.out.println("[1] Violations");
+            System.out.println("[2] Notifications");
+            System.out.println("[3] Messages");
+            System.out.println("[4] Logout");
+            System.out.print("Enter choice: ");
+            String choice = scanner.nextLine();
+            switch (choice) {
+                case "1": studentViolationsPage(); break;
+                case "2": studentNotificationsPage(); break;
+                case "3": studentMessagesPage(); break;
+                case "4": if (logout()) return; break;
+                default: System.out.println("Invalid choice."); break;
+            }
+        }
+    }
+
+    private static void showHomepage() {
+        try {
+            List<StudentFacade> students = HomePageFacade.getAllStudents();
+            if (students.isEmpty()) System.out.println("No students available.");
+            else {
+                System.out.println("\nHOMEPAGE - STUDENTS LIST");
+                System.out.printf("%-12s %-20s %-10s %-10s\n",
+                        "StudentID", "Student Name", "Grade", "Section");
+                int no = 1;
+                for (StudentFacade s : students)
+                    System.out.printf("[%d] %-12s %-20s %-10s %-10s\n",
+                            no++, s.getId(), s.getName(), s.getGrade(), s.getSection());
+            }
+            System.out.println("[1] Filter by Grade  [2] Filter by Section  [3] Back to Main Menu");
+            String subChoice = scanner.nextLine();
+            if (subChoice.equals("1")) filterByGrade();
+            if (subChoice.equals("2")) filterBySection();
+        } catch (Exception e) { System.err.println("Homepage error: " + e.getMessage()); }
+    }
+
+    private static void filterByGrade() {
+        System.out.print("Enter grade: ");
+        String grade = scanner.nextLine();
+        try {
+            List<StudentFacade> filtered = HomePageFacade.getStudentsByGrade(grade);
+            if (filtered.isEmpty()) System.out.println("No students found.");
+            else {
+                System.out.printf("%-12s %-20s %-10s %-10s\n",
+                        "StudentID", "Student Name", "Grade", "Section");
+                for (StudentFacade s : filtered)
+                    System.out.printf("%-12s %-20s %-10s %-10s\n",
+                            s.getId(), s.getName(), s.getGrade(), s.getSection());
+            }
+        } catch (Exception e) { System.err.println("Filter error: " + e.getMessage()); }
+    }
+
+    private static void filterBySection() {
+        System.out.print("Enter section: ");
+        String section = scanner.nextLine();
+        try {
+            List<StudentFacade> filtered = HomePageFacade.getStudentsBySection(section);
+            if (filtered.isEmpty()) System.out.println("No students found.");
+            else {
+                System.out.printf("%-12s %-20s %-10s %-10s\n",
+                        "StudentID", "Student Name", "Grade", "Section");
+                for (StudentFacade s : filtered)
+                    System.out.printf("%-12s %-20s %-10s %-10s\n",
+                            s.getId(), s.getName(), s.getGrade(), s.getSection());
+            }
+        } catch (Exception e) { System.err.println("Filter error: " + e.getMessage()); }
+    }
+
+    private static void recordViolation() {
+        try {
+            System.out.println("\nRECORD VIOLATION");
+            System.out.print("Enter StudentID: ");
+            String sid = scanner.nextLine();
+            System.out.print("Enter Offense Type: ");
+            String otype = scanner.nextLine();
+            System.out.print("Enter Student Name: ");
+            String sname = scanner.nextLine();
+            System.out.print("Enter Level of Offense: ");
+            String level = scanner.nextLine();
+            String date = sdf.format(new Date());
+            System.out.print("Enter Remarks: ");
+            String remarks = scanner.nextLine();
+            ViolationFacade.recordViolation(sid, otype, sname, level, date, remarks);
+            System.out.println("Violation recorded successfully on " + date + "!");
+        } catch (Exception e) { System.err.println("Record violation error: " + e.getMessage()); }
+    }
+
+    private static void showViolationPage() { }
+    private static void showStudentAppeals() { }
+    private static void settingsPage() { }
+    private static void studentViolationsPage() { }
+    private static void studentNotificationsPage() { }
+    private static void studentMessagesPage() { }
+
+    private static boolean logout() {
+        while (true) {
+            System.out.println("Are you sure you want to logout?");
+            System.out.println("[1] Yes  [2] No");
+            String choice = scanner.nextLine();
+            if (choice.equals("1")) { System.out.println("Logging out..."); return true; }
+            if (choice.equals("2")) return false;
+            System.out.println("Invalid choice.");
+        }
+    }
+}
 //
 //
 //            System.out.println("Welcome " + user + " !");
