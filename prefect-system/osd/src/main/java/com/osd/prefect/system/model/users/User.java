@@ -1,6 +1,10 @@
 package com.osd.prefect.system.model.users;
 
 public class User {
+    private String userID;
+    private String username;
+    private String userPassword;
+    private String userRole;
 
     public User(String userID, String username, String userPassword, String userRole) {
         this.userID = userID;
@@ -12,7 +16,7 @@ public class User {
     public User() {
     }
 
-    private String userID;
+
     public String getUserID() {
         return userID;
     }
@@ -20,8 +24,6 @@ public class User {
     public void setUserID(String userID) {
         this.userID = userID;
     }
-
-    private String username;
 
     public String getUsername() {
         return username;
@@ -31,8 +33,6 @@ public class User {
         this.username = username;
     }
 
-    private String userPassword;
-
     public String getUserPassword() {
         return userPassword;
     }
@@ -40,8 +40,6 @@ public class User {
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
     }
-
-    private String userRole;
 
     public String getUserRole() {
         return userRole;

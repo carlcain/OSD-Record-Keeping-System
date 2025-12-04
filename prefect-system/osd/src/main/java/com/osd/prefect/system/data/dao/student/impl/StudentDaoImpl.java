@@ -16,23 +16,22 @@ public class StudentDaoImpl implements StudentDao
     //TODO: i tanong kung departmentid ba yung kailangan o yung departmentName
 
     @Override
-    public Student getStudentByID(String StudentID)
+    public Student getStudentByID(String userID)
     {
         Student student;
-
         try (Connection con = ConnectionHelper.getConnection())
         {
-            PreparedStatement stmt = con.prepareStatement(
-                    "SELECT  s.studentID, p.lastName AS Surname, p.firstName AS FirstName, p.middleName AS Middlename, s.studentLevel, s.section, s.departmentID \n" +
-                            "FROM student s JOIN person p ON s.personID = p.personID WHERE s.userid = ?");
+            PreparedStatement stmt = con.prepareStatement("select * from student where StudentID = ?");
 
-            stmt.setString(1, StudentID);
+            stmt.setString(1, userID);
             ResultSet rs = stmt.executeQuery();
 
             if(rs.next())
             {
                 student = new Student();
                 student.setStudentID(rs.getString("studentID"));
+                student.setUserID("userID");
+                student.setPersonID("personID");
                 student.setStudentLevel(rs.getString("studentlevel"));
                 student.setSection(rs.getString("section"));
                 student.setDepartmentID(rs.getString("departmentID"));
@@ -54,18 +53,7 @@ public class StudentDaoImpl implements StudentDao
 
         try (Connection con = ConnectionHelper.getConnection())
         {
-            PreparedStatement stmt = con.prepareStatement(
-                    "SELECT " +
-                            "    s.studentID, " +
-                            "    p.lastName AS Surname, " +
-                            "    p.firstName AS FirstName, " +
-                            "    p.middleName AS Middlename, " +
-                            "    s.studentLevel, " +
-                            "    s.section, " +
-                            "    s.departmentID " +
-                            "FROM student s " +
-                            "JOIN person p ON s.personID = p.personID " +
-                            "WHERE s.departmentID = ?");
+            PreparedStatement stmt = con.prepareStatement("select * from student where DepartmentID = ?");
 
             stmt.setString(1, DepartmentID);
             ResultSet rs = stmt.executeQuery();
@@ -74,6 +62,8 @@ public class StudentDaoImpl implements StudentDao
             {
                 Student student = new Student();
                 student.setStudentID(rs.getString("studentID"));
+                student.setUserID("userID");
+                student.setPersonID("personID");
                 student.setStudentLevel(rs.getString("studentlevel"));
                 student.setSection(rs.getString("section"));
                 student.setDepartmentID(rs.getString("departmentID"));
@@ -93,18 +83,7 @@ public class StudentDaoImpl implements StudentDao
 
         try (Connection con = ConnectionHelper.getConnection())
         {
-            PreparedStatement stmt = con.prepareStatement(
-                    "SELECT " +
-                            "    s.studentID, " +
-                            "    p.lastName AS Surname, " +
-                            "    p.firstName AS FirstName, " +
-                            "    p.middleName AS Middlename, " +
-                            "    s.studentLevel, " +
-                            "    s.section, " +
-                            "    s.departmentID " +
-                            "FROM student s " +
-                            "JOIN person p ON s.personID = p.personID " +
-                            "WHERE s.section = ?");
+            PreparedStatement stmt = con.prepareStatement("select * from student where section = ?");
 
             stmt.setString(1, section);
             ResultSet rs = stmt.executeQuery();
@@ -113,6 +92,8 @@ public class StudentDaoImpl implements StudentDao
             {
                 Student student = new Student();
                 student.setStudentID(rs.getString("studentID"));
+                student.setUserID("userID");
+                student.setPersonID("personID");
                 student.setStudentLevel(rs.getString("studentlevel"));
                 student.setSection(rs.getString("section"));
                 student.setDepartmentID(rs.getString("departmentID"));
@@ -132,18 +113,7 @@ public class StudentDaoImpl implements StudentDao
 
         try (Connection con = ConnectionHelper.getConnection())
         {
-            PreparedStatement stmt = con.prepareStatement(
-                    "SELECT " +
-                            "    s.studentID, " +
-                            "    p.lastName AS Surname, " +
-                            "    p.firstName AS FirstName, " +
-                            "    p.middleName AS Middlename, " +
-                            "    s.studentLevel, " +
-                            "    s.section, " +
-                            "    s.departmentID " +
-                            "FROM student s " +
-                            "JOIN person p ON s.personID = p.personID " +
-                            "WHERE s.studentLevel = ?");
+            PreparedStatement stmt = con.prepareStatement("select * from student where studentLevel = ?");
 
             stmt.setString(1, studentLevel);
             ResultSet rs = stmt.executeQuery();
@@ -152,6 +122,8 @@ public class StudentDaoImpl implements StudentDao
             {
                 Student student = new Student();
                 student.setStudentID(rs.getString("studentID"));
+                student.setUserID("userID");
+                student.setPersonID("personID");
                 student.setStudentLevel(rs.getString("studentlevel"));
                 student.setSection(rs.getString("section"));
                 student.setDepartmentID(rs.getString("departmentID"));

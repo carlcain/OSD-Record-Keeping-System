@@ -16,12 +16,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class PrefectSystemApplication {
-    private static Scanner sc;
+    private static Scanner sc = new Scanner(System.in);;
 
     public static void main(String[] args) {
-        sc = new Scanner(System.in);
         Login();
-        sc.close();
     }
 
     public static void Login() {
@@ -37,7 +35,10 @@ public class PrefectSystemApplication {
             UserFacade userFacade = new UserFacadeImpl();
             currentUser = userFacade.getUserbyUsername(username);
 
-            if (username.equals(currentUser.getUsername()) && password.equals(currentUser.getUserPassword())) {
+            // to make debug easier
+            String currentusername = currentUser.getUsername();
+            String currentpassword = currentUser.getUserPassword();
+            if (username.equals(currentusername) && password.equals(currentpassword)) {
                 System.out.println("Login successful");
                 continuous = false;
             } else {
@@ -46,7 +47,7 @@ public class PrefectSystemApplication {
         } while (continuous);
 
         String role = currentUser.getUserRole();
-
+        role.toUpperCase();
         switch (role){
             case "STUDENT":
                 studentLogic(currentUser);
@@ -55,7 +56,7 @@ public class PrefectSystemApplication {
 //                prefectLogic(currentUser);
                 break;
             case "DEPARTMENT-HEAD":
-               departmentHeadLogic(currentUser);
+                departmentHeadLogic(currentUser);
                 break;
         }
 
@@ -67,6 +68,7 @@ public class PrefectSystemApplication {
 
         System.out.println("Hello " + s.getFirstName() +" !\n");
 
+        System.out.println("Student info: ");
         System.out.println("First Name: " + s.getFirstName());
         System.out.println("Middle Name: " + s.getMiddleName());
         System.out.println("Surname: " + s.getSurname() + "\n");
@@ -83,39 +85,29 @@ public class PrefectSystemApplication {
             System.out.println("Date of Resolution: " + violation.getDateofResolution());
             System.out.println("Remarks: " + violation.getRemarks());
             System.out.println("Status: " + violation.getStatus());
+            System.out.println("=========================================");
         }
     }
 
-    public static void departmentHeadLogic(User user)
-    {
+    public static void departmentHeadLogic(User user) {
         //Department head semi login
         DepartmentHeadDaoImpl departmentHeadDao = new DepartmentHeadDaoImpl();
         DepartmentHead departmentHead = departmentHeadDao.getDepartmentHeadById(user.getUserID());
 
-        System.out.println("Welcome DeptHead "+ user.getUsername() +"! ");
+        System.out.println("Welcome DeptHead " + user.getUsername() + "! ");
         System.out.println("would you like to make a request?");
         System.out.println("request = r");
         System.out.println("exit = e");
         String input = sc.next().toLowerCase();
 
-        if(input.equals("r"))
-        {
+        if (input.equals("r")) {
 
-        }
-        else if(input.equals("e"))
-        {
+        } else if (input.equals("e")) {
             Login();
-        }
-        else
-        {
+        } else {
             System.out.println("Unknown input");
         }
     }
-        else
-    {
-        System.out.println("sorry cant find ID");
-    }
-}
 }
 
 
