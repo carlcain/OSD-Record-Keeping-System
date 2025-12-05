@@ -17,13 +17,13 @@ import java.util.List;
 public class PrefectDaoImpl implements PrefectDao {
 
     @Override
-    public Prefect getPrefectByID(String prefectID) {
+    public Prefect getPrefectByID(String userID) {
         Prefect prefect = null;
 
         try (Connection con = ConnectionHelper.getConnection()) {
 
-            PreparedStatement stmt = con.prepareStatement("SELECT * FROM GUARDIAN WHERE GUARDIANID = ?");
-            stmt.setString(1, prefectID);
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM PREFECT WHERE USERID = ?");
+            stmt.setString(1, userID);
 
             ResultSet rs = stmt.executeQuery();
 

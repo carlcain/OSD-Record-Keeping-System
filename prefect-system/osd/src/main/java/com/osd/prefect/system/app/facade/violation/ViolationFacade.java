@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface ViolationFacade {
     List<Violation> getAllViolations();
-    void addViolation(String studentId, String prefectID, String offenseID, Date dateOfViolation, String actionID, Date dateOfResolution, String remarks, String status);
+    boolean addViolation(String studentId, String prefectID, String offenseID, String actionID, String remarks);
     void editViolation(Violation violation);
+    List<Violation> getAllViolationsPerStudent(String StudentID);
 }

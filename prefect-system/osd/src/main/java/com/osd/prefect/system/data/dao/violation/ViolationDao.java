@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface ViolationDao {
     List<Violation> getAllViolations();
-    void addViolation(String studentId, String prefectID, String offenseID, Date dateOfViolation, String actionID, Date dateOfResolution, String remarks, String status);
-    void editViolation(Violation violation);
+    boolean addViolation(String studentId, String prefectID, String offenseID, String actionID, String remarks);
+    List<Violation> getAllViolationsPerStudent(String StudentID);
+
 }
