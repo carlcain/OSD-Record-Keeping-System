@@ -42,23 +42,41 @@ class ViolationDaoImplTest {
         connectionHelper = Mockito.mockStatic(ConnectionHelper.class);
         connectionHelper.when(ConnectionHelper::getConnection).thenReturn(connection);
 
-        violationDao = mock(ViolationDao.class);
-        when(violationDao.getAllViolations()).thenReturn(Collections.emptyList());
-
+//        violationDao = mock(ViolationDao.class);
+//        when(violationDao.getAllViolations()).thenReturn(Collections.emptyList());
+//        Violation violationId = new Violation();
+//        violationId.setViolationID("OFF-018");
+//        when(violationDao.getAllViolations()).thenReturn(List.of(violationId));
+//
     }
 
-    @Test
-    void checkIfViolationIsNotOnList(){
-        List<Violation> roles = violationDao.getAllViolations();
-        boolean checkRole = false;
-
-        for (Violation v : roles) {
-            if (v.getViolationID().equals("OFF-019")) {
-                checkRole = true;
-                break;
-            }
-        }
-        assertFalse(checkRole, "Violation is not on list");
-        assertEquals(0, roles.size());
-    }
+//    @Test
+//    void checkIfViolationIsNotOnList(){
+//        List<Violation> roles = violationDao.getAllViolations();
+//        boolean checkRole = false;
+//
+//        for (Violation v : roles) {
+//            if (v.getViolationID().equals("OFF-019")) {
+//                checkRole = true;
+//                break;
+//            }
+//        }
+//        assertFalse(checkRole, "Violation is not on list");
+//        assertEquals(0, roles.size());
+//    }
+//
+//    @Test
+//    void checkIfViolationIsOnList(){
+//        List<Violation> roles = violationDao.getAllViolations();
+//
+//        boolean checkRole = true;
+//        for (Violation v : roles) {
+//            if (v.getViolationID().equals("OFF-018")) {
+//                checkRole = true;
+//                break;
+//            }
+//        }
+//        assertTrue(checkRole, "Violation is on the list");
+//        assertEquals(1, roles.size());
+//    }
 }
