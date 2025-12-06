@@ -1,8 +1,9 @@
 package com.osd.prefect.system.data.dao.prefect.impl;
 
 import com.osd.prefect.system.data.connection.ConnectionHelper;
+import com.osd.prefect.system.data.dao.prefect.PrefectDao;
 import com.osd.prefect.system.model.prefect.Prefect;
-import oracle.jdbc.proxy.annotation.Pre;
+import com.osd.prefect.system.model.users.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -15,7 +16,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class PrefectDaoImplTest {
 
@@ -27,6 +30,8 @@ class PrefectDaoImplTest {
     private ResultSet resultSet;
     @Mock
     private PrefectDaoImpl prefectDaoImpl;
+    @Mock
+    private PrefectDao prefectDao;
 
     private static MockedStatic<ConnectionHelper> connectionHelper;
 
@@ -38,61 +43,38 @@ class PrefectDaoImplTest {
         resultSet = mock(ResultSet.class);
         connectionHelper = Mockito.mockStatic(ConnectionHelper.class);
         connectionHelper.when(ConnectionHelper::getConnection).thenReturn(connection);
+
+        prefectDao = new PrefectDaoImpl();
+        when(connection.prepareStatement(anyString())).thenReturn(preparedStatement);
+        when(preparedStatement.executeQuery()).thenReturn(resultSet);
     }
 
-//        usersDao = mock(UsersDao.class);
-//        User user1 = new User("1007", "keith123","QUEVADA", "STUDENT");
-//
-//        when(usersDao.getUserbyID("1007")).thenReturn(user1);
-//        when(usersDao.getUserbyID("1000")).thenReturn(null);
-//        when(usersDao.getUserbyUsername("keith123")).thenReturn(user1);
-//        when(usersDao.getUserbyUsername("unknown")).thenReturn(null);
-//        when(usersDao.getUserbyRole("STUDENT")).thenReturn(List.of(user1));
-//        when(usersDao.getUserbyRole("PREFECT")).thenReturn(Collections.emptyList());
-
     @Test
-    void checkIfPrefectIdIsFound(){
-        Prefect prefect = prefectDaoImpl.getPrefectByID("DO-001");
+    void getPrefectIdByIdIfFound() throws Exception {
+        when(resultSet.next()).thenReturn(true);
+        when(resultSet.getString("prefectID")).thenReturn("DO-002");
+        when(resultSet.getString("departmentID")).thenReturn("shs-3002");
+
+        Prefect prefect = prefectDao.getPrefectByID("DO-012");
+
         assertNotNull(prefect);
-        assertEquals("keith123", prefect.getUsername());
-    }
-    @Test
-    void checkIfUserIdIsNotFound(){
-        assertNull(usersDao.getUserbyID("1000"));
-    }
-    @Test
-    void getUserByIdWithBlankIdShouldThrowException(){
-        UsersDaoImpl usersDaoImpl = new UsersDaoImpl();
-        Exception exception = assertThrows(Exception.class, () -> usersDaoImpl.getUserbyID(""));
-        assertEquals(exception.getMessage(), exception.getMessage());
-    }
-    @Test
-    void checkIfUsernameIsFound(){
-        User user = usersDao.getUserbyUsername("keith123");
-        assertNotNull(user);
-        assertEquals("1007", user.getUserID());
-    }
-    @Test
-    void checkIfUsernameIsNotFound(){
-        assertNull(usersDao.getUserbyUsername("unknown"));
-    }
-    @Test
-    void getUsernameWithBlankUsernameShouldThrowException(){
-        UsersDaoImpl usersDaoImpl = new UsersDaoImpl();
-        Exception exception = assertThrows(Exception.class, () -> usersDaoImpl.getUserbyUsername(""));
-        assertEquals(exception.getMessage(), exception.getMessage());
+        assertEquals("DO-002", prefect.getPrefectID());
+        assertEquals("shs-3002", prefect.getDepartmentID());
     }
 
     @Test
-    void checkRoleIfNotOnList() {
-        List<User> result = usersDao.getUserbyRole("PREFECT");
-        assertTrue(result.isEmpty());
+    void getPrefectIdByIdIfNotFound() throws Exception {
+        when(resultSet.next()).thenReturn(false);
+
+        Prefect prefect = prefectDao.getPrefectByID("DO-002");
+
+        assertNull(prefect);
     }
 
     @Test
-    void checkRoleIfFoundOnList() {
-        List<User> result = usersDao.getUserbyRole("STUDENT");
-        assertFalse(result.isEmpty());
-        assertEquals("keith123", result.get(0).getUsername());
+    void getPrefectByIdWithBlankIdShouldThrowException() {
+        Exception e = assertThrows(Exception.class, () -> prefectDao.getPrefectByID(""));
+        assertEquals("Prefect ID is blank", e.getMessage());
     }
+
 }
