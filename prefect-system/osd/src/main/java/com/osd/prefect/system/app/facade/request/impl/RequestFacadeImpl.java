@@ -13,8 +13,8 @@ public class RequestFacadeImpl implements RequestFacade {
     public RequestFacadeImpl(){this.request = new RequestDaoImpl();}
 
     @Override
-    public void setRequest(String deptHeadID, String details, String message) {
-        request.setRequest(deptHeadID, details, message);
+    public void setRequest(String deptHeadID, String details, String message, String type) {
+        request.setRequest(deptHeadID, details, message, type);
     }
 
     @Override

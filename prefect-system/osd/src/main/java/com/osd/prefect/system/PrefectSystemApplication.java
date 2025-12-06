@@ -3,7 +3,6 @@ package com.osd.prefect.system;
 import com.osd.prefect.system.app.facade.appeal.AppealFacade;
 import com.osd.prefect.system.app.facade.appeal.impl.AppealFacadeImpl;
 import com.osd.prefect.system.app.facade.disciplinary_action.impl.DisciplinaryActionImpl;
-import com.osd.prefect.system.app.facade.offense.OffenseFacade;
 import com.osd.prefect.system.app.facade.offense.impl.OffenseFacadeImpl;
 import com.osd.prefect.system.app.facade.person.PersonFacade;
 import com.osd.prefect.system.app.facade.person.impl.PersonFacadeImpl;
@@ -18,7 +17,6 @@ import com.osd.prefect.system.app.facade.users.impl.UserFacadeImpl;
 import com.osd.prefect.system.app.facade.violation.ViolationFacade;
 import com.osd.prefect.system.app.facade.violation.impl.ViolationFacadeImpl;
 import com.osd.prefect.system.data.dao.department_head.impl.DepartmentHeadDaoImpl;
-import com.osd.prefect.system.data.dao.disciplinary_action.impl.DisciplinaryActionDaoImpl;
 import com.osd.prefect.system.model.appeal.Appeal;
 import com.osd.prefect.system.model.department_head.DepartmentHead;
 import com.osd.prefect.system.model.disciplinary_action.DisciplinaryAction;
@@ -34,7 +32,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class PrefectSystemApplication {
-    private static Scanner sc = new Scanner(System.in);;
+    private static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
         Login();
@@ -156,9 +154,12 @@ public class PrefectSystemApplication {
             System.out.println("Message:");
             String message = sc.nextLine();
 
+            System.out.println("Type:");
+            String type = sc.nextLine();
+
             System.out.println("Loading.....");
             RequestFacadeImpl requestFacade = new RequestFacadeImpl();
-            requestFacade.setRequest(departmentHead.getDepartmentHeadID(), details, message);
+            requestFacade.setRequest(departmentHead.getDepartmentHeadID(),details, message, type);
             System.out.println("Done");
 
         } else if (input.equals("e")) {

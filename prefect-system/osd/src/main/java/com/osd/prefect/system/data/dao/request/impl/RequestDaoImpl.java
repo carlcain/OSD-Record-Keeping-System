@@ -15,13 +15,15 @@ import java.util.List;
 public class RequestDaoImpl implements RequestDao {
 
     @Override
-    public void setRequest(String deptHeadID, String details, String message) {
+    public void setRequest(String deptHeadID, String details, String message, String type) {
         try (Connection con = ConnectionHelper.getConnection()){
 
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO request (departmentHeadID, details, message) VALUES (?, ?, ?)");
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO request (departmentHeadID, details, message, type, status) VALUES (?, ?, ?, ?, ?)");
             stmt.setString(1, deptHeadID);
             stmt.setString(2, details);
             stmt.setString(3, message);
+            stmt.setString(4, type);
+
 
             stmt.executeUpdate();
 
