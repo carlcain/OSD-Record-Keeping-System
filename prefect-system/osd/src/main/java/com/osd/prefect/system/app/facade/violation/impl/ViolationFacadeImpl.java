@@ -19,11 +19,18 @@ public class ViolationFacadeImpl implements ViolationFacade {
     }
 
     @Override
-    public void addViolation(String studentId, String prefectID, String offenseID, Date dateOfViolation, String actionID, Date dateOfResolution, String remarks, String status) {
+    public boolean addViolation(String studentId, String prefectID, String offenseID,
+                         String actionID, String remarks){
+        return violationDao.addViolation(studentId, prefectID, offenseID, actionID, remarks);
     }
 
     @Override
     public void editViolation(Violation violation) {
 
+    }
+
+    @Override
+    public List<Violation> getAllViolationsPerStudent(String studentID) {
+        return violationDao.getAllViolationsPerStudent(studentID);
     }
 }

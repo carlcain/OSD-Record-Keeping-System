@@ -20,6 +20,10 @@ public class Appeal {
     private Date dateFiled;
     private String status;
 
+    public Appeal() {
+
+    }
+
     public String getAppealID() {
         return appealID;
     }

@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface AppealDao {
     boolean addAppeal(String violationID, String studentID,String message);
-    void editAppealStatus(Appeal appeal, String status);
+    boolean updateAppealStatus(String appealID, String status);
     List<Appeal> getAllAppeals();
 }

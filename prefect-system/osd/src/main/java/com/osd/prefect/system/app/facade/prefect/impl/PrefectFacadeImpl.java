@@ -14,6 +14,6 @@ public class PrefectFacadeImpl implements PrefectFacade {
    }
     @Override
     public Prefect getPrefectByID(String prefectID) {
-        return null;
+        return prefectDao.getPrefectByID(prefectID);
     }
 }

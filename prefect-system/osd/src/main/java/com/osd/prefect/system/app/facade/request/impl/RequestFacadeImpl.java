@@ -5,6 +5,8 @@ import com.osd.prefect.system.data.dao.request.RequestDao;
 import com.osd.prefect.system.data.dao.request.impl.RequestDaoImpl;
 import com.osd.prefect.system.model.request.Request;
 
+import java.util.List;
+
 public class RequestFacadeImpl implements RequestFacade {
     private RequestDao request;
 
@@ -13,5 +15,15 @@ public class RequestFacadeImpl implements RequestFacade {
     @Override
     public void setRequest(String deptHeadID, String details, String message) {
         request.setRequest(deptHeadID, details, message);
+    }
+
+    @Override
+    public List<Request> getAllRequests() {
+        return request.getAllRequests() ;
+    }
+
+    @Override
+    public boolean updateRequestStatus(String requestID, String newStatus) {
+        return request.updateRequestStatus(requestID, newStatus);
     }
 }
