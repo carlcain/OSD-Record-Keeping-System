@@ -5,7 +5,9 @@ import com.osd.prefect.system.model.request.Request;
 import java.util.List;
 
 public interface RequestFacade {
-    void setRequest(String deptHeadID, String details, String message);
+
+    void setRequest(String deptHeadID, String details, String message, String type);
+
     List<Request> getAllRequests();
     boolean updateRequestStatus(String requestID, String newStatus);
 }

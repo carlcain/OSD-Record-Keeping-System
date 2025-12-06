@@ -9,7 +9,7 @@ import java.util.List;
 
 public class OffenseFacadeImpl implements OffenseFacade {
     private OffenseDao offenseDao;
-    public OffenseFacadeImpl(OffenseDao offenseDao) {
+    public OffenseFacadeImpl() {
         offenseDao = new OffenseDaoImpl();
     }
     @Override

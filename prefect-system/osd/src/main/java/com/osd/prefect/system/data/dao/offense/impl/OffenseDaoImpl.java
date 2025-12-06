@@ -2,7 +2,6 @@ package com.osd.prefect.system.data.dao.offense.impl;
 
 import com.osd.prefect.system.data.connection.ConnectionHelper;
 import com.osd.prefect.system.data.dao.offense.OffenseDao;
-import com.osd.prefect.system.model.disciplinary_action.DisciplinaryAction;
 import com.osd.prefect.system.model.offense.Offense;
 
 import java.sql.Connection;
@@ -17,7 +16,7 @@ public class OffenseDaoImpl implements OffenseDao {
     public List<Offense> getAllOffense() {
         List<Offense> offenseList = new ArrayList<>();
         try (Connection con = ConnectionHelper.getConnection()) {
-            PreparedStatement stmt = con.prepareStatement("SELECT * FROM DISCIPLINARYACTION");
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM OFFENSE");
             ResultSet rs = stmt.executeQuery();
 
             while(rs.next()) {
