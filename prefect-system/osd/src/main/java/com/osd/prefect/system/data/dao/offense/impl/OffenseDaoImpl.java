@@ -17,7 +17,7 @@ public class OffenseDaoImpl implements OffenseDao {
     public List<Offense> getAllOffense() {
         List<Offense> offenseList = new ArrayList<>();
         try (Connection con = ConnectionHelper.getConnection()) {
-            PreparedStatement stmt = con.prepareStatement("SELECT * FROM DISCIPLINARYACTION");
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM OFFENSE");
             ResultSet rs = stmt.executeQuery();
 
             while(rs.next()) {
