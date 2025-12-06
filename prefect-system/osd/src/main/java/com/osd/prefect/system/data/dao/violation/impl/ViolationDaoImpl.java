@@ -49,7 +49,7 @@ public class ViolationDaoImpl implements ViolationDao {
                                 String actionID, String remarks) {
         String sql = "INSERT INTO VIOLATION " +
                 "(studentID, prefectID, offenseID, dateOfViolation, actionID, dateOfResolution, remarks, status) " +
-                "VALUES (?, ?, ?, SYSDATE, ?, NULL, ?, 'PENDING')";
+                "VALUES (?, ?, ?, SYSDATE, ?, SYSDATE, ?, 'PENDING')";
 
         try (Connection con = ConnectionHelper.getConnection();
              PreparedStatement stmt = con.prepareStatement(sql)) {

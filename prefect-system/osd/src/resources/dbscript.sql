@@ -26,109 +26,109 @@ COMMIT;
 
 -- LOGIN ENTITY
 CREATE TABLE users (
-                       userID VARCHAR(10) PRIMARY KEY,
-                       username VARCHAR(50) UNIQUE NOT NULL,
-                       userPassword VARCHAR(100) NOT NULL,
-                       userRole VARCHAR(20) NOT NULL
+    userID VARCHAR(10) PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    userPassword VARCHAR(100) NOT NULL,
+    userRole VARCHAR(20) NOT NULL
 );
 
--- PERSON
+-- PERSON 
 CREATE TABLE person (
-                        personID VARCHAR(10) PRIMARY KEY,
-                        lastName VARCHAR(50) NOT NULL,
-                        firstName VARCHAR(100) NOT NULL,
-                        middleName VARCHAR(30) NOT NULL
+    personID VARCHAR(10) PRIMARY KEY,
+    lastName VARCHAR(50) NOT NULL,
+    firstName VARCHAR(100) NOT NULL,
+    middleName VARCHAR(30) NOT NULL
 );
 
 -- DEPARTMENT & HEAD
 CREATE TABLE department_head (
-                                 departmentheadID VARCHAR(10) PRIMARY KEY,
-                                 userID VARCHAR(10),
-                                 personID VARCHAR(10),
-                                 departmentID VARCHAR(10)
+    departmentheadID VARCHAR(10) PRIMARY KEY,
+    userID VARCHAR(10),
+    personID VARCHAR(10),
+    departmentID VARCHAR(10)
 );
 
 --DEPARTMENT
 CREATE TABLE department (
-                            departmentID VARCHAR(10) PRIMARY KEY,
-                            departmentname VARCHAR(100),
-                            departmentheadID VARCHAR(10)
+    departmentID VARCHAR(10) PRIMARY KEY,
+    departmentname VARCHAR(100),
+    departmentheadID VARCHAR(10)
 );
 
 -- STUDENT
 CREATE TABLE student (
-                         studentID VARCHAR(10) PRIMARY KEY,
-                         userID VARCHAR(10),
-                         personID VARCHAR(10),
-                         studentLevel VARCHAR(30),
-                         section VARCHAR(50),
-                         departmentID VARCHAR(10)
+    studentID VARCHAR(10) PRIMARY KEY,
+    userID VARCHAR(10),
+    personID VARCHAR(10),
+    studentLevel VARCHAR(30),
+    section VARCHAR(50),
+    departmentID VARCHAR(10)
 );
 
 -- PREFECT
 CREATE TABLE prefect (
-                         prefectID VARCHAR(10) PRIMARY KEY,
-                         userID VARCHAR(10),
-                         personID VARCHAR(10),
-                         departmentID VARCHAR(10)
+    prefectID VARCHAR(10) PRIMARY KEY,
+    userID VARCHAR(10),
+    personID VARCHAR(10),
+    departmentID VARCHAR(10)
 );
 
 -- GUARDIAN
 CREATE TABLE guardian (
-                          guardianID VARCHAR(10) PRIMARY KEY,
-                          personID VARCHAR(10),
-                          contactnumber VARCHAR(20),
-                          relationship VARCHAR(50),
-                          studentID VARCHAR(10)
+    guardianID VARCHAR(10) PRIMARY KEY,
+    personID VARCHAR(10),
+    contactnumber VARCHAR(20),
+    relationship VARCHAR(50),
+    studentID VARCHAR(10)
 );
 
 -- OFFENSE
 CREATE TABLE offense (
-                         offenseID VARCHAR(10) PRIMARY KEY,
-                         offense VARCHAR(100),
-                         type VARCHAR(50),
-                         remarks VARCHAR(500)
+    offenseID VARCHAR(10) PRIMARY KEY,
+    offense VARCHAR(100),
+    type VARCHAR(50),
+    remarks VARCHAR(500)
 );
 
 -- DISCIPLINARY ACTION
 CREATE TABLE disciplinaryaction (
-                                    actionID VARCHAR(10) PRIMARY KEY,
-                                    action VARCHAR(100),
-                                    description VARCHAR(500)
+    actionID VARCHAR(10) PRIMARY KEY,
+    action VARCHAR(100),
+    description VARCHAR(500)
 );
 
 -- VIOLATION
 CREATE TABLE violation (
-                           violationID VARCHAR(10) PRIMARY KEY,
-                           studentID VARCHAR(10),
-                           prefectID VARCHAR(10),
-                           offenseID VARCHAR(10),
-                           Dateofviolation DATE,
-                           actionID VARCHAR(10),
-                           Dateofresolution DATE,
-                           Remarks VARCHAR(500),
-                           status VARCHAR(30)
+    violationID VARCHAR(10) PRIMARY KEY,
+    studentID VARCHAR(10),
+    prefectID VARCHAR(10),
+    offenseID VARCHAR(10),
+    Dateofviolation DATE,
+    actionID VARCHAR(10),
+    Dateofresolution DATE,
+    Remarks VARCHAR(500),
+    status VARCHAR(30)
 );
 
 -- APPEAL
 CREATE TABLE appeal (
-                        appealID VARCHAR(10) PRIMARY KEY,
-                        violationID VARCHAR(10),
-                        studentID VARCHAR(10),
-                        message VARCHAR(500),
-                        datefiled DATE,
-                        status VARCHAR(20)
+    appealID VARCHAR(10) PRIMARY KEY,
+    violationID VARCHAR(10),
+    studentID VARCHAR(10),
+    message VARCHAR(500),
+    datefiled DATE,
+    status VARCHAR(20)
 );
 
 --REQUEST
 
 CREATE TABLE request (
-                         requestID VARCHAR(10) PRIMARY KEY,
-                         departmentHeadID VARCHAR(10),
-                         details VARCHAR(100),
-                         message VARCHAR(500),
-                         type VARCHAR(100),
-                         status VARCHAR(10)
+    requestID VARCHAR(10) PRIMARY KEY,
+    departmentHeadID VARCHAR(10),
+    details VARCHAR(100),
+    message VARCHAR(500),
+    type VARCHAR(100),
+    status VARCHAR(10)
 );
 
 -- FOREIGN KEYS
@@ -152,33 +152,45 @@ ALTER TABLE appeal ADD CONSTRAINT FK_APPEAL_STUDENT FOREIGN KEY (studentID) REFE
 ALTER TABLE request ADD CONSTRAINT FK_REQUEST_DEPTHEAD FOREIGN KEY (departmentHeadID) REFERENCES department_head(departmentHeadID);
 
 -- SEQUENCE
-CREATE SEQUENCE appeal_seq
-    START WITH 1
-    INCREMENT BY 1
-    NOCACHE;
+CREATE SEQUENCE appeal_seq 
+START WITH 1 
+INCREMENT BY 1 
+NOCACHE;
 
 CREATE SEQUENCE request_seq
-    START WITH 1
-    INCREMENT BY 1
-    NOCACHE;
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+
+CREATE SEQUENCE violation_seq
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
 
 -- TRIGGERS
 CREATE OR REPLACE TRIGGER trg_appeal_id
-    BEFORE INSERT ON appeal
-    FOR EACH ROW
+BEFORE INSERT ON appeal
+FOR EACH ROW
 BEGIN
     :NEW.appealID := 'APP-' || LPAD(appeal_seq.NEXTVAL, 3, '0');
 END;
 /
 
 CREATE OR REPLACE TRIGGER trg_request_id
-    BEFORE INSERT ON request
-    FOR EACH ROW
+BEFORE INSERT ON request
+FOR EACH ROW
 BEGIN
     :NEW.requestID := 'REQ-' || LPAD(request_seq.NEXTVAL, 3, '0');
 END;
 /
 
+CREATE OR REPLACE TRIGGER trg_violation_id
+BEFORE INSERT ON violation
+FOR EACH ROW
+BEGIN
+    :NEW.violationID := 'V-' || LPAD(violation_seq.NEXTVAL, 3, '0');
+END;
+/
 
 
 -- LOGIN VALUES
@@ -282,9 +294,9 @@ INSERT INTO disciplinaryaction (actionID, action, description) VALUES ('D-001', 
 INSERT INTO disciplinaryaction (actionID, action, description) VALUES ('D-002', 'Probation', 'a warning status given to a student whose academic performance or behavior falls below the institutions standards');
 
 -- VIOLATION VALUES
-INSERT INTO violation (violationID, studentID, prefectID, offenseID, Dateofviolation, actionID, Dateofresolution, Remarks, status)  VALUES ('V-001', 'S-001', 'DO-001', 'OFF-002', TO_DATE('2025-07-28','YYYY-MM-DD'), 'D-001', TO_DATE('2025-08-04','YYYY-MM-DD'), '8 hours of Community service', 'IN PROGRESS');
-INSERT INTO violation (violationID, studentID, prefectID, offenseID, Dateofviolation, actionID, Dateofresolution, Remarks, status) VALUES ('V-002', 'S-002', 'DO-001', 'OFF-005', TO_DATE('2025-10-01','YYYY-MM-DD'), 'D-001', TO_DATE('2025-10-04','YYYY-MM-DD'), '4 hours of Community service', 'IN PROGRESS');
-INSERT INTO violation (violationID, studentID, prefectID, offenseID, Dateofviolation, actionID, Dateofresolution, Remarks, status) VALUES ('V-003', 'S-003', 'DO-001', 'OFF-007', TO_DATE('2025-10-20','YYYY-MM-DD'), 'D-001', TO_DATE('2025-10-25','YYYY-MM-DD'), '10 hours of Community service', 'IN PROGRESS');
+INSERT INTO violation (studentID, prefectID, offenseID, Dateofviolation, actionID, Dateofresolution, Remarks, status)  VALUES ('S-001', 'DO-001', 'OFF-002', TO_DATE('2025-07-28','YYYY-MM-DD'), 'D-001', TO_DATE('2025-08-04','YYYY-MM-DD'), '8 hours of Community service', 'IN PROGRESS');
+INSERT INTO violation (studentID, prefectID, offenseID, Dateofviolation, actionID, Dateofresolution, Remarks, status) VALUES ('S-002', 'DO-001', 'OFF-005', TO_DATE('2025-10-01','YYYY-MM-DD'), 'D-001', TO_DATE('2025-10-04','YYYY-MM-DD'), '4 hours of Community service', 'IN PROGRESS');
+INSERT INTO violation (studentID, prefectID, offenseID, Dateofviolation, actionID, Dateofresolution, Remarks, status) VALUES ('S-003', 'DO-001', 'OFF-007', TO_DATE('2025-10-20','YYYY-MM-DD'), 'D-001', TO_DATE('2025-10-25','YYYY-MM-DD'), '10 hours of Community service', 'IN PROGRESS');
 
 -- APPEAL VALUES
 INSERT INTO appeal (appealID, violationID, studentID, message, datefiled, status) VALUES ('APP-001', 'V-001', 'S-001', 'I did not punch my classmate', TO_DATE('2025-07-29','YYYY-MM-DD'), 'Not Resolve');
@@ -296,6 +308,8 @@ INSERT INTO appeal (appealID, violationID, studentID, message, datefiled, status
 INSERT INTO request (departmentHeadID, details, type, message, status) VALUES ('HD-002', 'St. Rita', 'By Section', 'Requesting for the studentIDs of all students in St. Rita', 'Approved');
 INSERT INTO request (departmentHeadID, details, type, message, status) VALUES ('HD-003', 'IT701', 'Individual', 'Requesting for the studentID of Leeane Reyes in IT701', 'Pending');
 INSERT INTO request (departmentHeadID, details, type, message, status) VALUES ('HD-001', 'St. Hannibal', 'By Section', 'Requesting for the studentIDs of all students in St. Hannibal', 'Denied');
+
+
 
 COMMIT;
 

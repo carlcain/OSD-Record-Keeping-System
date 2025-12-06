@@ -2,6 +2,9 @@ package com.osd.prefect.system;
 
 import com.osd.prefect.system.app.facade.appeal.AppealFacade;
 import com.osd.prefect.system.app.facade.appeal.impl.AppealFacadeImpl;
+import com.osd.prefect.system.app.facade.disciplinary_action.impl.DisciplinaryActionImpl;
+import com.osd.prefect.system.app.facade.offense.OffenseFacade;
+import com.osd.prefect.system.app.facade.offense.impl.OffenseFacadeImpl;
 import com.osd.prefect.system.app.facade.person.PersonFacade;
 import com.osd.prefect.system.app.facade.person.impl.PersonFacadeImpl;
 import com.osd.prefect.system.app.facade.prefect.PrefectFacade;
@@ -15,8 +18,11 @@ import com.osd.prefect.system.app.facade.users.impl.UserFacadeImpl;
 import com.osd.prefect.system.app.facade.violation.ViolationFacade;
 import com.osd.prefect.system.app.facade.violation.impl.ViolationFacadeImpl;
 import com.osd.prefect.system.data.dao.department_head.impl.DepartmentHeadDaoImpl;
+import com.osd.prefect.system.data.dao.disciplinary_action.impl.DisciplinaryActionDaoImpl;
 import com.osd.prefect.system.model.appeal.Appeal;
 import com.osd.prefect.system.model.department_head.DepartmentHead;
+import com.osd.prefect.system.model.disciplinary_action.DisciplinaryAction;
+import com.osd.prefect.system.model.offense.Offense;
 import com.osd.prefect.system.model.person.Person;
 import com.osd.prefect.system.model.prefect.Prefect;
 import com.osd.prefect.system.model.request.Request;
@@ -208,14 +214,27 @@ public class PrefectSystemApplication {
                     System.out.println("\nEnter Student ID:");
                     String sid = sc.nextLine();
                     System.out.println("Enter Offense ID:");
+                    OffenseFacadeImpl of = new OffenseFacadeImpl();
+                    List<Offense> lo = of.getAllOffense();
+                    for(Offense o : lo){
+                        System.out.println("[" + o.getOffenseID() + "]" + "" + o.getOffense());
+                    }
                     String offense = sc.nextLine();
+                    DisciplinaryActionImpl dai = new DisciplinaryActionImpl();
+                    List<DisciplinaryAction> da = dai.getAllDisciplinaryAction();
                     System.out.println("Enter Action ID: ");
+                    for(DisciplinaryAction d : da){
+                        System.out.println("[" + d.getActionID() + "]" + "" + d.getAction() + "- " + d.getDescription());
+                    }
                     String action = sc.nextLine();
                     System.out.println("Remarks:");
                     String remark = sc.nextLine();
-
                     boolean addStatus = vf.addViolation(sid , currentPrefect.getPrefectID(), offense, action, remark);
-                    System.out.println("Violation Recorded Successfully.");
+                    if (addStatus) {
+                        System.out.println("Violation Recorded Successfully.");
+                    } else {
+                        System.out.println("Violation is not recorded, please try again...");
+                    }
                     break;
 
                 case 3:
